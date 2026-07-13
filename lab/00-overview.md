@@ -69,4 +69,54 @@ public/
 
 ---
 
+## 🚀 GitHub Copilot App の初回セットアップ
+
+ラボを始める前に、Fork したリポジトリを GitHub Copilot App にプロジェクトとして登録し、
+セッションを作成してアプリを起動します。
+
+### 1. Fork したリポジトリをプロジェクトに追加する
+
+GitHub Copilot App のプロジェクト一覧で **Add project from** → **GitHub repository...** を選びます。
+リポジトリの選択画面では、Fork 元ではなく、**自分の GitHub アカウントに Fork したリポジトリ**を選択してください。
+
+![GitHub repository からプロジェクトを追加するメニュー](./images/00-add-github-repository.png)
+
+### 2. プロジェクトの Settings を開く
+
+追加したリポジトリをプロジェクト一覧で右クリックし、**Settings** を開きます。
+
+### 3. Setup スクリプトに `npm ci` を追加する
+
+Settings の **Scripts** で **Add script** を選び、次の内容を Setup スクリプトとして保存します。
+
+```text
+npm ci
+```
+
+これにより、新しいワークスペースの作成時に `package-lock.json` に従って依存関係がインストールされます。
+
+![Setup スクリプトに npm ci を設定した状態](./images/00-setup-script-npm-ci.png)
+
+### 4. New worktree でセッションを作成する
+
+登録したプロジェクトから新しいセッションを作成し、ワークスペースには **New worktree** を選択します。
+Setup スクリプトの完了後、`!` コマンドで次を実行します。
+
+```text
+!git status
+```
+
+現在のブランチとワークツリーの状態が表示されれば、セッションの準備は完了です。
+
+![セッションの Terminal で git status を実行した状態](./images/00-session-terminal-run.png)
+
+### 5. Run でアプリを起動して Canvas で確認する
+
+画面右上の **Run** を選択してアプリケーションを起動します。
+起動後に Canvas を開き、商品一覧が表示されることと、検索ボックスで商品を絞り込めることを確認します。
+
+これで GitHub Copilot App からラボを進める準備は完了です。
+
+---
+
 ← [ラボ目次](./README.md) ・ 次へ → [01. 現在のアプリを起動して確認する](./01-explore-current-app.md)
