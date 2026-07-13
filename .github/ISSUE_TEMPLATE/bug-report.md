@@ -2,7 +2,9 @@
 name: バグ報告
 about: 運用中に見つかった不具合を報告し、修正を依頼する
 title: "[Bug] "
-labels: bug
+labels: bug, enhancement
+assignees: ''
+
 ---
 
 ## 概要
