@@ -1,16 +1,20 @@
 # Lab 01: 機能実装でガードレールを体験する
 
-**テーマ:** 機能追加を依頼し、結果から再現性を支えるガードレールを理解する
+**テーマ:** 依存追加を伴う機能実装で、ルール・手順・検証が連携する様子を見る
 
 ## シナリオ
 
 Outdoor eShop に商品詳細ページへの**画面遷移（ルーティング）**を追加する。
-React SPA でルーティングを実現するには、新しいランタイム依存
-`react-router-dom` が必要になる。
+React SPA でルーティングを実現するには新しいランタイム依存 `react-router-dom` が必要になる。
+この「依存を追加する」場面で、リポジトリに仕込まれた役割分担が働く様子を確認する。
 
-受講者は通常の機能追加として依頼するだけでよい。Copilot App がリポジトリの
-Instructions、Skills、Hooks を利用し、環境や依存関係のルールに沿って実装する様子を
-結果から確認する。
+| 層 | 実体 | 役割 |
+| --- | --- | --- |
+| プロジェクトの前提 | `.github/copilot-instructions.md` | 実行環境・技術スタック・依存ルールを提示 |
+| SDLC ルール | `AGENTS.md` | 作業ブランチ、Human-in-the-loop、Skill 起動条件を提示 |
+| 実行手順 | `.github/skills/` | 依存追加と Git workflow の具体的な手順を実行 |
+| 即時検証 | `.github/hooks/` | 依存・環境ファイル編集直後に自動チェック |
+| Pull Request 時の検証 | `.github/workflows/ci.yml` | Lab 02 で `npm ci`、test、build を再確認 |
 
 ## 前提条件
 
