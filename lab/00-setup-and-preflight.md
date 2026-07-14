@@ -4,70 +4,84 @@
 
 ## シナリオ
 
-Fork した Outdoor eShop を GitHub Copilot App にプロジェクトとして登録し、
-ワークショップを進められる状態にする。ここは計測対象外の事前準備。
+Fork した Outdoor eShop リポジトリを GitHub Copilot App にプロジェクトとして登録する。
 
 ## 前提条件
 
 - GitHub Copilot App が利用できること。
-- このリポジトリを自分のアカウントに Fork 済みであること。
+
+    参照：[GitHub Copilot アプリを使い始める](https://docs.github.com/ja/copilot/how-tos/github-copilot-app/getting-started)
 - Node.js 20 と npm が利用できること。
 
 ## 手順
 
-### 1. npm レジストリを確認する
+### 1. Fork したリポジトリをプロジェクトに追加する
 
-このリポジトリはプロジェクトの `.npmrc` でレジストリを固定していない。
-Setup の前に、現在の参照先と疎通を確認する。
+サイドバーの「Sessions」>「＋」ボタンから **Add project from > GitHub repository...** を選び、Fork した Outdoor eShop リポジトリを追加する。
+
+### 2. Quick Chat を試す
+
+リポジトリに接続が出来たら、サイドバーの「Chats」から New Chat を開きます。リポジトリアイコン (Mode の右) から、先程追加したリポジトリを選択し、以下プロンプトを実行する。※GPT-5.6 Terra / Medium 推奨
+
+```text
+このリポジトリの概要を教えて
+```
+
+> [!TIP]
+> Chats はブランチやワークツリーを作成することなく、質問やブレーンストーミングを行うことが可能。
+
+### 3. プロジェクトからセッションを作成し、Shell コマンドを実行する
+
+プロジェクトから新しいセッションを作成し、**Local repository** を選ぶ。
+
+立ち上がったセッションの入力欄で、`!` に続けて 以下 shell コマンドを実行し、npm レジストリへの疎通を確認する。
 
 ```shell
-npm config get registry
 npm view react-router-dom version engines peerDependencies --json
 ```
 
-公開 npm レジストリへ直接アクセスできない環境では、所属組織が指定するレジストリを
-ユーザーまたはマシン単位で設定してから再実行する。組織固有のレジストリ URL や
-認証情報は、リポジトリの `.npmrc` に追加しないこと。
+<!-- ![Terminal で git status](./images/00-session-terminal-run.png) -->
 
-### 2. Fork したリポジトリをプロジェクトに追加する
+> [!IMPORTANT]
+> このリポジトリはプロジェクトの `.npmrc` でレジストリを固定していない。
+> 公開 npm レジストリへ直接アクセスできない環境では、所属組織が指定するレジストリをユーザーまたはマシン単位で設定してから npm のコマンドを再実行する。
+> 組織固有のレジストリ URL や認証情報は、リポジトリの `.npmrc` に追加しないこと。
 
-プロジェクト一覧で **Add project from → GitHub repository...** を選び、
-**自分が Fork したリポジトリ**を追加する。
+### 5. Setup スクリプトに `npm ci` を設定する
 
-![GitHub repository からプロジェクトを追加する](./images/00-add-github-repository.png)
+追加したリポジトリを右クリック → **Settings** → **Scripts** で、Setup スクリプトを開き、次を設定して **Save** する。
 
-### 3. Setup スクリプトに `npm ci` を設定する
-
-追加したリポジトリを右クリック → **Settings** → **Scripts** で、Setup スクリプトに次を設定する。
-
-```text
-npm ci
-```
+- **Name**: `依存関係インストール`
+- **Command**: `npm ci`
+- **Triggers**: **Run on workspace creation** をオン
 
 新しいワークスペース作成時に `package-lock.json` どおりの依存がインストールされる。
 
-![Setup スクリプトに npm ci を設定](./images/00-setup-script-npm-ci.png)
+### 6. 新しいワークツリーにパッケージがインストールされた状態でセッションを開く
 
-### 4. New worktree でセッションを作成する
+プロジェクトから新しいセッションを作成し、**New worktree** を選ぶ。Shell コマンドで以下を実行する。
 
-プロジェクトから新しいセッションを作成し、**New worktree** を選ぶ。
-Setup スクリプト完了後、`!` コマンドで状態を確認する。
-
-```text
-!git status
+```shell
+git branch
 ```
 
-![Terminal で git status](./images/00-session-terminal-run.png)
+> [!IMPORTANT]
+> 新しいセッションを開き、プロンプトを実行して初めてワークスペースが作成されるため、一旦 Shell コマンドを実行している。
 
-### 5. Run と Canvas を確認する
+> [!TIP]
+> - ワークツリーのメリットを享受できる。
+> - Setup スクリプトで初回に毎度 `npm ci` が実行されるため、すべてのワークツリーで `package-lock.json` に準拠した依存関係バージョンが使用できる。
+
+### 7. Run と Canvas を確認する
 
 右上の **Run** でアプリを起動し、**Browser Canvas** で商品一覧が表示されることを確認する。
 
 ## 期待する結果 / 残る成果物
 
-- New worktree のセッションが作成されている。
-- npm レジストリへの疎通が確認できている。
+- Fork したリポジトリがプロジェクトに追加されている。
 - Setup スクリプトで依存がインストールされている。
+- New worktree のセッションが作成され、起動している。
+- セッション上の shell コマンドで worktree の状態と npm レジストリへの疎通が確認できている。
 - Run でアプリが起動し、Canvas で表示できる。
 
 > うまくいかない場合は [講師ガイド](./instructor-guide.md#lab-00-復旧) を参照。
