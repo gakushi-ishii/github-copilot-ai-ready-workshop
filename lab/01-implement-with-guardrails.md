@@ -50,7 +50,7 @@ Plan モードに切り替えて、次を Copilot App に貼り付ける。
 ```
 
 > [!NOTE]
-> 計画を開始すると、作業ブランチの `feature/` に続く部分が、作業内容に沿った名前（例: `feature/product-detail-routing`）へリネームされる。
+> チーム運用規約の GitHub Flow に則り、計画を開始すると、自動で作業ブランチが作業内容に沿った名前（例: `feature/product-detail-routing`）へリネームされる。
 
 ### 2. プランを確認して実装する
 

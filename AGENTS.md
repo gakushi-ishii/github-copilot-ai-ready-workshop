@@ -6,26 +6,18 @@
 
 ## Git / GitHub 運用
 
-- GitHub Flow を採用する。`main` を常にデプロイ可能な唯一の基準ブランチとし、変更は短命な
-  作業ブランチで行い、Pull Request 経由でのみ `main` へ統合する。`main` へ直接 push しない。
-- 作業する実行面で役割を分ける。開発フェーズの実装・修正は GitHub Copilot App のローカル worktree、
-  運用フェーズのバグ修正は Issue にして Copilot Cloud Agent へ委託する。
-- 作業ブランチは `feature/` プレフィックスを付け、続く部分を変更する作業項目が分かる説明的な名前にする
-  （例: `feature/cost-update`）。
-- Pull Request を変更の唯一の統合点かつ証跡とする。base は `main` とし、CI によるサーバー側の
-  再検証を通してから統合する。
+- GitHub Flow を採用する。`main` を常にデプロイ可能な唯一の基準ブランチとし、変更は短命な作業ブランチで行い、Pull Request 経由でのみ `main` へ統合する。`main` へ直接 push しない。
+- 作業する実行面で役割を分ける。開発フェーズの実装・修正は GitHub Copilot App のローカル worktree、運用フェーズのバグ修正は Issue にして Copilot Cloud Agent へ委託する。
+- 作業ブランチは `feature/<実装内容>` とする。実装計画や依頼内容に基づいて変更する。詳細な手順は `.github/skills/git-workflow/SKILL.md` を参照。
+- Pull Request を変更の唯一の統合点かつ証跡とする。base は `main` とし、CI によるサーバー側の再検証を通してから統合する。
 
 ## Human-in-the-loop
 
 - GitHub Copilot App のローカル worktree では、コミットを作業の意図を残す証跡として扱う。
-  コミット前に日本語のメッセージ案を提示し、ユーザーが承認するまで実行しない。
-- コミット後、ユーザーが GitHub Copilot App の **Create draft PR** を使用し、
-  Pull Request のタイトルと本文を確認・修正してから Draft Pull Request を作成する。
-- Copilot Cloud Agent が作成したコミットと Pull Request は、Issue の受け入れ条件、
-  差分、テスト、CI を人がレビューしてからマージを判断する。
+- コミット後は勝手に PR を作成せず、ユーザーの応答を待つ。
+- Copilot Cloud Agent が作成したコミットと Pull Request は、Issue の受け入れ条件、差分、テスト、CI を人がレビューしてからマージを判断する。
 - ユーザーの明示的な依頼なしに Pull Request のマージを行わない。
-- force push、rebase、履歴の書き換え、その他の破壊的な Git 操作は、
-  ユーザーの明示的な承認なしに行わない。
+- force push、rebase、履歴の書き換え、その他の破壊的な Git 操作は、ユーザーの明示的な承認なしに行わない。
 
 ## Issue 対応
 
@@ -34,13 +26,10 @@
 
 ## Skill の起動
 
-- GitHub Copilot App のローカル worktree でファイルの作成・編集・削除を伴う依頼では、
-  最初の編集前に
+- GitHub Copilot App のローカル worktree でファイルの作成・編集・削除を伴う依頼では、最初の編集前に
   `.github/skills/git-workflow/SKILL.md` を読み、その手順に従う。
-- `package.json` / `package-lock.json` / `tsconfig*.json` の変更や依存追加では、
-  あわせて `.github/skills/add-dependency-safely/SKILL.md` に従う。
-- 相談、調査、レビュー、計画、読み取り、コマンド実行だけの依頼では
-  `git-workflow` を起動しない。
+- `package.json` / `package-lock.json` / `tsconfig*.json` の変更や依存追加では、あわせて `.github/skills/add-dependency-safely/SKILL.md` に従う。
+- 相談、調査、レビュー、計画、読み取り、コマンド実行だけの依頼では `git-workflow` を起動しない。
 
 ## ハンズオン教材の分離
 
