@@ -1,5 +1,5 @@
 {
-  "name": "eshop-sample-for-workshop",
+  "name": "github-copilot-ai-ready-workshop",
   "image": "mcr.microsoft.com/devcontainers/typescript-node:20",
   "features": {
     "ghcr.io/devcontainers/features/github-cli:1": {}
