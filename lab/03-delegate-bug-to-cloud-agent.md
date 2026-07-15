@@ -48,7 +48,7 @@ Issue 番号と割り当て状態を報告してください。
 ### 3. Cloud Agent の開始を確認する
 
 Cloud Agent が Issue を受けて作業を開始し、やがて PR を作成する。
-完成を待つ間、次の [Lab 04](./04-handoff-to-new-session.md) へ進む。
+PR が作成されたら、次の [Lab 04](./04-review-cloud-agent-pr.md) でレビューする。
 
 ## 期待する結果 / 残る成果物
 
@@ -56,9 +56,9 @@ Cloud Agent が Issue を受けて作業を開始し、やがて PR を作成す
 - Issue が Cloud Agent に割り当てられ、作業が始まっている。
 
 > Cloud Agent は `main` の Instructions、AGENTS、Skills と Issue を読んで作業する。
-> Cloud Agent のコミットと Pull Request はプラットフォームが管理し、人は Lab 05 で
+> Cloud Agent のコミットと Pull Request はプラットフォームが管理し、人は Lab 04 で
 > Issue、差分、テスト、CI を根拠にレビューする。
 
 ---
 
-← [Lab 02](./02-feature-pr.md) ・ 次へ → [Lab 04: 新しいセッションへ引き継ぐ](./04-handoff-to-new-session.md)
+← [Lab 02](./02-feature-pr.md) ・ 次へ → [Lab 04: Cloud Agent の PR をレビューする](./04-review-cloud-agent-pr.md)
