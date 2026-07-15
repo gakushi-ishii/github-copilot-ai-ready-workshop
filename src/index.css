@@ -155,7 +155,7 @@ body {
 
 .card-link {
   color: inherit;
-  display: flex;
+  display: block;
   text-decoration: none;
 }
 
