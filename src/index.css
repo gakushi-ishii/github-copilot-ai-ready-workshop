@@ -153,6 +153,18 @@ body {
   gap: 20px;
 }
 
+.card-link {
+  color: inherit;
+  display: flex;
+  text-decoration: none;
+}
+
+.card-link:focus-visible {
+  border-radius: 10px;
+  outline: 3px solid rgba(47, 125, 79, 0.35);
+  outline-offset: 3px;
+}
+
 .card {
   background: var(--surface);
   border: 1px solid var(--border);
@@ -223,6 +235,108 @@ body {
   margin-left: 4px;
 }
 
+/* ---------- Product detail ---------- */
+.detail-main {
+  max-width: 960px;
+}
+
+.back-link {
+  color: var(--accent-dark);
+  display: inline-block;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  text-decoration: none;
+}
+
+.back-link:hover {
+  text-decoration: underline;
+}
+
+.back-link:focus-visible {
+  border-radius: 4px;
+  outline: 3px solid rgba(47, 125, 79, 0.35);
+  outline-offset: 3px;
+}
+
+.product-detail {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  overflow: hidden;
+}
+
+.product-detail__imagewrap {
+  align-items: center;
+  aspect-ratio: 1 / 1;
+  background: var(--image-bg);
+  display: flex;
+  justify-content: center;
+  padding: 40px;
+}
+
+.product-detail__image {
+  max-height: 100%;
+  max-width: 100%;
+  object-fit: contain;
+}
+
+.product-detail__body {
+  align-self: center;
+  padding: 40px;
+}
+
+.product-detail__eyebrow {
+  color: var(--accent-dark);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  margin: 0 0 8px;
+}
+
+.product-detail__name {
+  font-size: 28px;
+  line-height: 1.4;
+  margin: 0 0 20px;
+}
+
+.product-detail__description {
+  color: var(--text-muted);
+  font-size: 15px;
+  margin: 0 0 28px;
+}
+
+.product-detail__price {
+  color: var(--price);
+  font-size: 26px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.product-not-found {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 64px 24px;
+  text-align: center;
+}
+
+.product-not-found h2 {
+  margin: 0 0 8px;
+}
+
+.product-not-found p {
+  color: var(--text-muted);
+  margin: 0 0 24px;
+}
+
+.product-not-found .back-link {
+  margin-bottom: 0;
+}
+
 /* ---------- Empty ---------- */
 .empty {
   padding: 48px 0;
@@ -250,6 +364,23 @@ body {
 @media (max-width: 680px) {
   .grid {
     grid-template-columns: repeat(2, 1fr);
+  }
+
+  .product-detail {
+    grid-template-columns: 1fr;
+  }
+
+  .product-detail__imagewrap {
+    aspect-ratio: 4 / 3;
+    padding: 24px;
+  }
+
+  .product-detail__body {
+    padding: 28px 24px 32px;
+  }
+
+  .product-detail__name {
+    font-size: 22px;
   }
 }
 

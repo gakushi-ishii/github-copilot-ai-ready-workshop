@@ -1,7 +1,8 @@
 # Outdoor eShop for GitHub Copilot App
 
 登山・キャンプ向けアウトドア用品店の EC サンプルアプリです。
-GitHub Copilot ハンズオンの教材として作られています。現状の機能は **商品一覧** と **全文検索** のみ。
+GitHub Copilot ハンズオンの教材として作られています。現状の機能は **商品一覧**、**全文検索**、
+**商品詳細の表示** です。
 
 GitHub Copilot App で **AI Ready な開発ライフサイクル**を体験するハンズオンです。
 リポジトリには、前提・ルールを伝える Instructions、実行手順を再利用する Skill、
