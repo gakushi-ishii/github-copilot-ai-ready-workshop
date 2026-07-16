@@ -28,12 +28,12 @@ GitHub Copilot ハンズオンの教材である。機能や構成の現状は R
 
 ## 依存関係のルール
 
-新しいパッケージの追加や `package.json` / `package-lock.json` / `tsconfig*.json` の変更は、
-環境依存の事故（手元では動くが他環境や CI で壊れる）を生みやすい。次を必ず守ること。
+新しいパッケージの追加や `package.json` / `package-lock.json` / `tsconfig*.json` の変更は、環境依存の事故（手元では動くが他環境や CI で壊れる）を生みやすい。次を必ず守ること。
 
 - `package.json` を変更したら `npm install` で `package-lock.json` を同期し、
   `npm ci` が成功する状態を保つ。lockfile は手で編集しない。
 - 追加パッケージは Node 20 以上 / React 18 と互換でなければならない。
+- Hook が互換基準に反する依存追加を検知した場合、必ずインストール前の状態へ戻し、理由を報告したうえで次のユーザーの指示を仰ぐ。
 - `tsconfig` の `target` / `module` / `moduleResolution` は原則変更しない。
 - ブラウザ実行前提のコードに Node 専用 API（`fs`、`path`、`process` 依存など）を持ち込まない。
 
