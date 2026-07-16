@@ -118,7 +118,7 @@ git status
 - ワークツリーが `C:\Users\xxx\.copilot\repos\copilot-worktrees\github-copilot-ai-ready-workshop\feature-xxx` に作成され、新しいセッションが立ち上がっている。
 - ワークツリーでは `main` とは別の、`feature/` プレフィックスが付いた自動生成の作業ブランチ上にいる。
 - Setup スクリプトで新しく作成されたワークツリー環境に依存がインストールされている。
-- Run で正常にアプリが立ち上がりし、Browser Canvas タブで Web UI が確認できる。
+- Run で正常にアプリが立ち上がりし、Browser Canvas タブで Outdoor eShop が確認できる。
 
 > うまくいかない場合は [講師ガイド](./instructor-guide.md#lab-00-復旧) を参照。
 

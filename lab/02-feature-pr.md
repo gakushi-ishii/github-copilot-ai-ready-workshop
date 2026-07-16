@@ -1,26 +1,26 @@
 # Lab 02: PR 作成、レビューを加速する
 
-**テーマ:** Main へのマージに機械的な品質ゲートと人の確認フローを組みこむ。
+**テーマ:** main へのマージに機械的な品質ゲートと人の確認フローを組みこむ。
 
 ## シナリオ
 
-- GitHub Copilot App では PR の自動作成や Auto マージが可能だが、認識負債・齟齬を考慮して、本ラボではこれらは実施しない。
-- エージェントにはドラフト案だけを作成させ、PR タイトル・本文をを人が確認する手順を踏む。
+- GitHub Copilot App では PR の自動作成や Auto マージが可能だが、認識負債・齟齬を考慮して、本ラボではこれらを実施しない。
+- エージェントにはドラフト案だけを作成させ、PR タイトル・本文を人が確認する手順を踏む。
 - 依存ガードレールやテスト、型チェック・ビルド検証といったゲートを、サーバー側の CI に組み込むことで、機械的に品質を担保する。
 
 ## 前提条件
 
 - Lab 01 の実装・検証・Browser Canvas での動作確認が完了していること。
 - GitHub Actions が利用できる。
-  1. フォークしたリポジトリから、**[Actions]** タブを開く。
+  1. Web UI (github.com) でフォークしたリポジトリを開き、**[Actions]** タブを開く。
   2. **[I understand my workflows, go ahead and enable them]** を押す。
-  ![フォークリポジトリで Actions を有効化する](./images/02-enable-workflows-in-fork-epository.png)
+   ![フォークリポジトリで Actions を有効化する](./images/02-enable-workflows-in-fork-epository.png)
 
 ## 手順
 
 ### 1. Create draft PR でタイトルと本文を確認する
 
-GitHub Copilot App UI の **[Create draft PR]** を実行する。Lab 01 でコミットしてなければコミットされ、変更内容に関する PR ドラフトが自動生成される。
+Lab 02 で使用したセッションから **[Create draft PR]** を実行する。Lab 01 でコミットをしてなければコミットされ、変更内容に関する PR ドラフトが自動生成される。
 
 ![Create draft PR を選択する](./images/02-create-draft-pr.png)
 
@@ -48,18 +48,17 @@ PR の内容を確認したら、右上の **Draft** を押し、**[Ready for re
 Copilot Review を試すため、現在開かれている **Merge pull request** ページは一度閉じ、再度 PR タブを開く。
 **Reviewers** から Copilot をアサインする。
 
-**※ Reviewer のアップデートに失敗した場合は Web UI から PR を開き、右側サイドバーの Reviewers から Copilot に Request する**
+> [!WARNING]
+> **Reviewer のアップデートに失敗した場合は Web UI (github.com) から PR を開き、右側サイドバーの Reviewers から Copilot に Request する**
 
 ![Copilot Review](./images/02-reviewers-request.png)
 
 Copilot がコードレビューを開始すると、**[View session]** が表示される。**[View session]** では Cloud Agent が実際にレビューしているセッションを確認できる。
 
-レビュー結果には PR の概要と変更箇所、レビューしたファイル一覧が含まれる。変更提案を確認し、採用を検討する。
+レビュー結果には PR の概要と変更箇所、レビューしたファイル一覧が含まれる。レビューによる変更提案に関しては以降の Lab に影響がないため、全て承認して先に進めてよい。
 
 > [!Note]
 > 変更提案を承認すると、再度 CI が発火し、品質チェックを行う。
-
-※ レビューの提案は以降のラボに影響がないため、全て承認して先に進めてよい。
 
 ### 3. main へマージする
 

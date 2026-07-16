@@ -8,9 +8,9 @@
 | --- | --- | --- |
 | 0〜8分 | Lab 00 | 全員が New worktree セッションを作成し、Run/Canvas を確認できたか |
 | 8〜40分 | Lab 01 | 依存関係が同期され、実装後のコミット案が承認待ちになっているか |
-| 40〜52分 | Lab 02 | コミットと Draft PR を人が確認し、Feature PR の CI が成功したか |
+| 40〜52分 | Lab 02 | PR の CI が成功し、Copilot Review が完了したか |
 | 52〜64分 | Lab 03 | Bug Issue が作成され Cloud Agent に委託されたか |
-| 64〜90分 | Lab 04 | Cloud Agent PR を受け入れ条件と対応付けてレビューできたか |
+| 64〜90分 | Lab 04 | Cloud Agent PR を受け入れ条件と実際の動作が確認できたか |
 
 合流ポイント: 8, 40, 52, 64 分。
 
