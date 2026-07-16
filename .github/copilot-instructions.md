@@ -15,7 +15,7 @@ GitHub Copilot ハンズオンの教材である。機能や構成の現状は R
 
 | 項目 | 値 | 補足 |
 | --- | --- | --- |
-| ランタイム | Node.js 20（`.node-version`） | クリーン環境の依存インストールは `npm ci` を契約とする |
+| ランタイム | Node.js 20 以上（最小サポート版；`.node-version` と CI は 22 を使用） | クリーン環境の依存インストールは `npm ci` を契約とする |
 | パッケージ管理 | npm（`package-lock.json`） | lockfile を解決済み依存ツリーの正とする |
 | フレームワーク | React 18.3 + react-dom 18.3 | ブラウザ実行前提（SSR なし） |
 | ビルド/開発 | Vite 6 | `npm run dev` / `npm run build` |
@@ -33,7 +33,7 @@ GitHub Copilot ハンズオンの教材である。機能や構成の現状は R
 
 - `package.json` を変更したら `npm install` で `package-lock.json` を同期し、
   `npm ci` が成功する状態を保つ。lockfile は手で編集しない。
-- 追加パッケージは Node 20 / React 18 と互換でなければならない。
+- 追加パッケージは Node 20 以上 / React 18 と互換でなければならない。
 - `tsconfig` の `target` / `module` / `moduleResolution` は原則変更しない。
 - ブラウザ実行前提のコードに Node 専用 API（`fs`、`path`、`process` 依存など）を持ち込まない。
 

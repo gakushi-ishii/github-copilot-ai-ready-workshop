@@ -4,7 +4,7 @@
 // package.json / package-lock.json / tsconfig*.json が変更されたときだけ、
 // 環境依存の事故を機械的に検出する。
 //   1. lockfile 同期      : package.json と package-lock.json の不整合 (= `npm ci` 失敗) を検出
-//   2. 環境互換 (best-effort): 追加依存の engines.node が Node 20 と非互換なら警告
+//   2. 環境互換 (best-effort): 追加依存の engines.node が最小サポート Node (>=20) と非互換なら警告
 //   3. tsconfig 変更時    : 型チェック (`tsc -b`) を実行
 //
 // 追加の npm 依存は使わない。Node.js 標準モジュールのみ。
@@ -15,7 +15,10 @@ import { readFileSync, existsSync } from 'node:fs';
 import { resolve, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-const NODE_MAJOR = 20;
+// プロジェクトの最小サポート Node メジャー（前提: Node 20 以上 = engines.node ">=20"）。
+// 依存の engines.node は大半が開放区間 (>=X) のため、「最小メジャーを満たすか」の
+// 一点判定が ">=20" 全体の互換判定と一致する。
+const MIN_NODE_MAJOR = 20;
 const WATCHED = new Set(['package.json', 'package-lock.json']);
 const isTsconfig = (name) => /^tsconfig.*\.json$/.test(name);
 
@@ -96,9 +99,9 @@ function checkLockfileSync() {
   return problems;
 }
 
-// engines.node の範囲に、指定メジャー (Node 20) が含まれるかを判定する。
+// engines.node の範囲に、指定メジャー（最小サポート = Node 20）が含まれるかを判定する。
 // `||` (OR)、`^`、`~`、`>=`/`>`/`<=`/`<`、完全一致、`*` を best-effort で解釈する。
-// 厳密な semver 解決ではないが、Node 20 を明確に除外する範囲だけを非互換とみなす。
+// 厳密な semver 解決ではないが、最小サポート版（Node 20）を明確に除外する範囲だけを非互換とみなす。
 function nodeMajorSatisfies(range, major) {
   if (!range || range.trim() === '' || range.includes('*')) return true;
   const clauses = range.split('||').map((c) => c.trim()).filter(Boolean);
@@ -141,7 +144,7 @@ function nodeMajorSatisfies(range, major) {
   return false;
 }
 
-// 追加依存の engines.node が Node 20 と非互換なら警告する (best-effort)。
+// 追加依存の engines.node が最小サポート Node (>=20) と非互換なら警告する (best-effort)。
 function checkEngineCompat() {
   const lock = readJson('package-lock.json');
   const warnings = [];
@@ -151,9 +154,9 @@ function checkEngineCompat() {
     if (!key.startsWith('node_modules/')) continue;
     const nodeRange = meta && meta.engines && meta.engines.node;
     if (typeof nodeRange !== 'string') continue;
-    if (!nodeMajorSatisfies(nodeRange, NODE_MAJOR)) {
+    if (!nodeMajorSatisfies(nodeRange, MIN_NODE_MAJOR)) {
       warnings.push(
-        `${key.replace('node_modules/', '')} は Node ${nodeRange} を要求します (実行環境は Node ${NODE_MAJOR})`,
+        `${key.replace('node_modules/', '')} は Node ${nodeRange} を要求します (最小サポートは Node ${MIN_NODE_MAJOR} 以上)`,
       );
     }
   }

@@ -7,7 +7,7 @@
 - GitHub Copilot App が利用できること。
 
     参照：[GitHub Copilot アプリを使い始める](https://docs.github.com/ja/copilot/how-tos/github-copilot-app/getting-started)
-- Node.js 20 と npm が利用できること。
+- Node.js 20 以上 と npm が利用できること。
 
 ## 手順
 
