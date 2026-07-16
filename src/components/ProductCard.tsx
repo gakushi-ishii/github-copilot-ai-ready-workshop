@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import type { Product } from '../types';
 
 interface ProductCardProps {
@@ -8,7 +9,7 @@ const priceFormatter = new Intl.NumberFormat('ja-JP');
 
 export function ProductCard({ product }: ProductCardProps) {
   return (
-    <article className="card">
+    <Link className="card" to={`/product/${product.id}`}>
       <div className="card__imagewrap">
         <img
           className="card__image"
@@ -25,6 +26,6 @@ export function ProductCard({ product }: ProductCardProps) {
           <span className="card__tax">税込</span>
         </p>
       </div>
-    </article>
+    </Link>
   );
 }
