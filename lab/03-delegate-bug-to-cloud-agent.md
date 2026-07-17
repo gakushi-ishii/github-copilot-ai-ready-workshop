@@ -29,7 +29,7 @@
 
 ### 2. Issue を作成する
 
-Lab 02 では review のみ Cloud Agent へ委任したが、今回は実装からテスト・PR 作成まで Cloud Agent に委任する。
+Lab 02 ではレビューのみ Cloud Agent へ委任したが、今回は実装からテスト・PR 作成まで Cloud Agent に委任する。
 
 Cloud Agent は **[Agents]** タブの **Sessions** から依頼をすれば、依頼の完了から PR 作成まで一気通貫で行う。
 
