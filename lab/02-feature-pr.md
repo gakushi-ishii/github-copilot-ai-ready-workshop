@@ -1,26 +1,27 @@
 # Lab 02: PR 作成、レビューを加速する
 
-**テーマ:** Main へのマージに機械的な品質ゲートと人の確認フローを組みこむ。
+**テーマ:** main へのマージに機械的な品質ゲートと人の確認フローを組みこむ。
 
 ## シナリオ
 
-- GitHub Copilot App では PR の自動作成や Auto マージが可能だが、認識負債・齟齬を考慮して、本ラボではこれらは実施しない。
-- エージェントにはドラフト案だけを作成させ、PR タイトル・本文をを人が確認する手順を踏む。
+- GitHub Copilot App では PR の自動作成や Auto マージが可能だが、認識負債・齟齬を考慮して、本ラボではこれらを実施しない。
+- エージェントにはドラフト案だけを作成させ、PR タイトル・本文を人が確認する手順を踏む。
 - 依存ガードレールやテスト、型チェック・ビルド検証といったゲートを、サーバー側の CI に組み込むことで、機械的に品質を担保する。
+- GitHub Copilot Code Review を一次ゲートとして置き、品質向上・レビューワー負荷軽減に役立てる。
 
 ## 前提条件
 
-- Lab 01 の実装・検証とコミットが完了していること。
+- Lab 01 の実装・検証・Browser Canvas での動作確認が完了していること。
 - GitHub Actions が利用できる。
-  1. フォークしたリポジトリから、**[Actions]** タブを開く。
-  2. **I understand my workflows, go ahead and enable them** を押す。
-  ![フォークリポジトリで Actions を有効化する](./images/02-enable-workflows-in-fork-epository.png)
+  1. Web UI (github.com) でフォークしたリポジトリを開き、**[Actions]** タブを開く。
+  2. **[I understand my workflows, go ahead and enable them]** を押す。
+   ![フォークリポジトリで Actions を有効化する](./images/02-enable-workflows-in-fork-epository.png)
 
 ## 手順
 
 ### 1. Create draft PR でタイトルと本文を確認する
 
-コミット完了後、GitHub Copilot App UI の **Create draft PR** を選ぶ。
+Lab 02 で使用したセッションから **[Create draft PR]** を実行する。Lab 01 でコミットをしてなければコミットされ、変更内容に関する PR ドラフトが自動生成される。
 
 ![Create draft PR を選択する](./images/02-create-draft-pr.png)
 
@@ -31,42 +32,77 @@
 
 参考：[GitHub Copilot アプリを使用した問題と pull request の管理](https://docs.github.com/ja/copilot/how-tos/github-copilot-app/managing-issues-and-pull-requests)
 
-Draft PR が作成されたら、Web からフォークしたリポジトリを開き、**[Pull Requests]** の内容を確認する。
+Draft PR が作成されたら、右のサイドバーに **PR** タブ表示される。**PR** タブを開き、ドラフト内容を確認する。
 
-- 自身のフォークリポジトリであることを確認する。
 - base ブランチが `main` であることを確認する。
-- タイトルが本実装とマッチしているか、本文に背景や変更内容、検証内容等が含まれているか確認する。
+- タイトルが本実装とマッチしているか、本文に背景や変更内容、検証内容が含まれているか確認する。
 - CI が自動で走り、ワークフローが正常に完了しているかを確認する。
 - コンフリクトが発生していないか確認する。
 
-![CI の発火](./images/02-ci-buil-test.png)
+![CI の発火](./images/02-ci-build-test.png)
 
-### 2. Cloud Agent にレビューを依頼する
+### 2. GitHub Copilot にレビューを依頼する
 
-PR 内容を確認したら、**Ready for review** から
-PR の **Reviewers** から Copilot にレビューを **Request** する。
+PR の内容を確認したら、右上の **Draft** を押し、**[Ready for review]** で PR を Open にする。
+※ **[Agent merge]** は今回 OFF
+
+Copilot Review を試すため、現在開かれている **Merge pull request** ページは一度閉じ、再度 PR タブを開く。
+**Reviewers** から Copilot をアサインする。
+
+> [!WARNING]
+> **Reviewer のアップデートに失敗した場合は Web UI (github.com) から PR を開き、右側サイドバーの Reviewers から Copilot に Request する**
 
 ![Copilot Review](./images/02-reviewers-request.png)
 
-Copilot がコードレビューを開始すると、**View session** が表示される。**View session** では Cloud Agent が実際にレビューをしているセッションを確認できる。
+Copilot がコードレビューを開始すると、**[View session]** が表示される。**[View session]** では Copilot が実際にレビューしているセッションを確認できる。
 
-レビュー結果には PR の概要と変更箇所、レビューしたファイル一覧が含まれる。変更提案を確認し、採用を検討する。
+レビュー結果には PR の概要と変更箇所、レビューしたファイル一覧が含まれる。
+
+![Copilot Review Result](./images/02-review-result.png)
+
+Copilot コードレビューでは改善点があった場合、必ず **レビューコメント** として残す動作となり、**Approve (承認)** や **Request Changes (変更要求)** は実施しない。
+つまり、問題点や改善案をコメントとして投稿するが、最終的な承認者は人になる。
+
+![Copilot Review Suggestion](./images/02-review-suggestion.png)
+
+参考：[GitHub Copilot を使ったコードレビュー](https://docs.github.com/ja/copilot/how-tos/use-copilot-agents/request-a-code-review/use-code-review)
+
+変更提案コメントに関しては以降の Lab に影響がないため、全てコミット・承認して先に進めてよい。
 
 > [!Note]
-> **Commit Suggestion** で変更提案を承認すると、再度 CI が発火し、品質チェックを行う。
+> 変更提案を反映すると、再度 CI が発火し、品質チェックを行う。
 
-※ レビューの提案は以降のラボに影響がないため、一旦全て Apply して先に進めてよい。
+> [!Tip]
+> **一次ゲートとして Copilot コードレビューの自動化**
+> 
+> PR を自動で確認するよう、Copilot コードレビューを設定することができる。ルール設定は個人単位・リポジトリ単位・Organization 単位で可能。
+> 
+> 参考：[GitHub Copilotによる自動コード レビューの構成](https://docs.github.com/ja/copilot/how-tos/copilot-on-github/set-up-copilot/configure-automatic-review)
+
 
 ### 3. main へマージする
 
-CI と Draft Pull Request の内容を確認したら Ready for review に変更する。
-その後、**Copilot App の UI** 上の「Merge pull request」ボタンを押して自分のフォークリポジトリの `main` へマージする。
+右上の **Ready to merge** からサイドバーを開き、**Merge Commit** で PR を Main ブランチへマージする。
 
-## 期待する結果
+## Optional : GitHub Copilot App で PR 管理
 
-- 人が確認したタイトルと本文を持つ PR を作成する。
-- `main` に商品詳細ルーティングと AI Ready なルール・手順・検証が反映される。
+GitHub Copilot App の左サイドバーから **[My work]** を開くと、対象リポジトリの PR 一覧やレビュー依頼が確認できる。
+
+ログインアカウントに紐づくリポジトリの PR 状況が全て確認できるため、複数プロジェクトを横断した進行管理やレビュー実施が可能。
+
+※ 右上の **[All repositories]** からリポジトリをフィルターできる。
+
+![My Work View](./images/02-my-work-view.png)
+
+## 本ラボで期待する結果
+
+- 実装内容や背景をくみ取った PR が作成される。
+- PR テンプレートに沿った形式で PR を作成される。
+- クラウド上で Copilot コードレビューが走る。
 - サーバー側の CI が走り、品質チェックを行う。
+
+> [!IMPORTANT]
+> 計画・実装の流れのまま Pull Request を作成・確認でき、レビュー・マージを GitHub Copilot App で完結できる。
 
 ---
 
