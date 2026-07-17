@@ -65,8 +65,8 @@ describe('商品詳細ページへの遷移', () => {
 
   it('一覧には全商品ぶんのカードリンクが表示される', () => {
     renderApp('/');
-    const grid = screen.getByText(`${products.length} 件の商品`);
-    expect(grid).toBeInTheDocument();
+    const resultCount = screen.getByText(`${products.length} 件の商品`);
+    expect(resultCount).toBeInTheDocument();
     const links = screen.getAllByRole('link');
     const productLinks = links.filter((link) =>
       within(link).queryByRole('img'),
