@@ -43,7 +43,7 @@ describe('商品詳細ページへの遷移', () => {
     expect(screen.getByText('おすすめのアウトドア用品')).toBeInTheDocument();
     expect(
       screen.getByPlaceholderText(/検索|キーワード/),
-    ).toBeTruthy();
+    ).toBeInTheDocument();
   });
 
   it('存在しない商品 ID では見つからない旨と戻る導線を表示する', () => {
