@@ -56,10 +56,11 @@ GitHub Copilot App の **[My work]** を開き、Lab 03 の作業で作成され
 
 ## Todo
 
-- Automation 機能を活用した定常業務の効率化
+- バックエンド、外部依存の追加
 - Playwright を使用した E2E テスト
 - マルチモデル (Rubber Duck) レビュー
-- IaC、クラウド、外部依存サービスを含んだ Agentic SDLC
+- IaC、クラウドの利活用
+- Automation 機能を活用した定常業務の効率化
 
 ---
 
