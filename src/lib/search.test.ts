@@ -19,6 +19,18 @@ describe('searchProducts', () => {
     expect(result.map((p) => p.id)).toEqual([1, 3]);
   });
 
+  it('複数キーワードをAND条件で扱い、全角・半角スペースと連続スペースを無視する', () => {
+    const result = searchProducts(sample, '  キャンプ　   テント  ');
+    expect(result.map((p) => p.id)).toEqual([3]);
+  });
+
+  it('商品ごとに元の配列を変更しない', () => {
+    const original = [...sample];
+    const result = searchProducts(sample, 'キャンプ テント');
+    expect(result.map((p) => p.id)).toEqual([3]);
+    expect(sample).toEqual(original);
+  });
+
   it('説明文にヒットする商品も返す', () => {
     const result = searchProducts(sample, '登山');
     expect(result).toHaveLength(1);

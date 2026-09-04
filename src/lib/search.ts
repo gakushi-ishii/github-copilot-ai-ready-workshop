@@ -11,12 +11,17 @@ import type { Product } from '../types';
  *    （ワークショップ題材B：価格ソート/絞り込みはここに追加します）
  */
 export function searchProducts(products: Product[], query: string): Product[] {
-  const keyword = query.trim().toLowerCase();
-  if (keyword === '') {
+  const keywords = query
+    .split(/[\s\u3000]+/)
+    .map((keyword) => keyword.trim().toLowerCase())
+    .filter((keyword) => keyword.length > 0);
+
+  if (keywords.length === 0) {
     return products;
   }
+
   return products.filter((product) => {
     const haystack = `${product.name} ${product.description}`.toLowerCase();
-    return haystack.includes(keyword);
+    return keywords.every((keyword) => haystack.includes(keyword));
   });
 }
