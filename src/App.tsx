@@ -1,11 +1,23 @@
 import { useMemo, useState } from 'react';
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { Header } from './components/Header';
 import { SearchBar } from './components/SearchBar';
 import { ProductGrid } from './components/ProductGrid';
 import { products } from './data/products';
 import { searchProducts } from './lib/search';
+import { ProductDetailPage } from './pages/ProductDetailPage';
 
-export default function App() {
+export function AppRoutes() {
+  return (
+    <Routes>
+      <Route path="/" element={<ProductListPage />} />
+      <Route path="/product/:id" element={<ProductDetailPage />} />
+      <Route path="*" element={<Navigate to="/" replace />} />
+    </Routes>
+  );
+}
+
+function ProductListPage() {
   const [query, setQuery] = useState('');
 
   const visibleProducts = useMemo(
@@ -36,5 +48,13 @@ export default function App() {
         <p>Outdoor eShop — GitHub Copilot ワークショップ用サンプル</p>
       </footer>
     </div>
+  );
+}
+
+export default function App() {
+  return (
+    <BrowserRouter>
+      <AppRoutes />
+    </BrowserRouter>
   );
 }
